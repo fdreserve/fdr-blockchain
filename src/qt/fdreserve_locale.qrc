@@ -1,0 +1,29 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/fdreserve_bg.qm</file>
+        <file alias="ca">locale/fdreserve_ca.qm</file>
+        <file alias="cs">locale/fdreserve_cs.qm</file>
+        <file alias="da">locale/fdreserve_da.qm</file>
+        <file alias="de">locale/fdreserve_de.qm</file>
+        <file alias="en">locale/fdreserve_en.qm</file>
+        <file alias="en_US">locale/fdreserve_en_US.qm</file>
+        <file alias="es">locale/fdreserve_es.qm</file>
+        <file alias="fi">locale/fdreserve_fi.qm</file>
+        <file alias="fr_FR">locale/fdreserve_fr_FR.qm</file>
+        <file alias="it">locale/fdreserve_it.qm</file>
+        <file alias="ja">locale/fdreserve_ja.qm</file>
+        <file alias="ko_KR">locale/fdreserve_ko_KR.qm</file>
+        <file alias="nl">locale/fdreserve_nl.qm</file>
+        <file alias="pl">locale/fdreserve_pl.qm</file>
+        <file alias="pt">locale/fdreserve_pt.qm</file>
+        <file alias="pt_BR">locale/fdreserve_pt_BR.qm</file>
+        <file alias="ro_RO">locale/fdreserve_ro_RO.qm</file>
+        <file alias="ru">locale/fdreserve_ru.qm</file>
+        <file alias="sk">locale/fdreserve_sk.qm</file>
+        <file alias="sv">locale/fdreserve_sv.qm</file>
+        <file alias="tr">locale/fdreserve_tr.qm</file>
+        <file alias="uk">locale/fdreserve_uk.qm</file>
+        <file alias="zh_CN">locale/fdreserve_zh_CN.qm</file>
+        <file alias="zh_TW">locale/fdreserve_zh_TW.qm</file>
+    </qresource>
+</RCC>

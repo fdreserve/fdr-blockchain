@@ -1,0 +1,26 @@
+[Unit]
+Description=fdreserve's distributed currency daemon
+After=network.target
+
+[Service]
+User=fdreserve
+Group=fdreserve
+
+Type=forking
+PIDFile=/var/lib/fdreserved/fdreserved.pid
+
+ExecStart=/usr/bin/fdreserved -daemon -pid=/var/lib/fdreserved/fdreserved.pid \
+          -conf=/etc/fdreserve/fdreserve.conf -datadir=/var/lib/fdreserved
+
+ExecStop=-/usr/bin/fdreserve-cli -conf=/etc/fdreserve/fdreserve.conf \
+         -datadir=/var/lib/fdreserved stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

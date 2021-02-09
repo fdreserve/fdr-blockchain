@@ -1,0 +1,26 @@
+# /etc/conf.d/fdreserved: config file for /etc/init.d/fdreserved
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/fdreserve/fdreserve.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/fdreserved"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/fdreserved.pid"
+
+# Where to write fdreserved data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/fdreserved"
+
+# User and group to own fdreserved process
+#BITCOIND_USER="fdreserve"
+#BITCOIND_GROUP="fdreserve"
+
+# Path to fdreserved executable
+#BITCOIND_BIN="/usr/bin/fdreserved"
+
+# Nice value to run fdreserved under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

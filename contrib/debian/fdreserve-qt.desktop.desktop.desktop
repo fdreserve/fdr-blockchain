@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=fdreserve
+Comment=FDR P2P Cryptocurrency
+Exec=fdreserve-qt %u
+Terminal=false
+Type=Application
+Icon=fdreserve128
+MimeType=x-scheme-handler/fdreserve;
+Categories=Office;Finance;
+Name[ru]=fdreserve-qt.desktop.desktop
