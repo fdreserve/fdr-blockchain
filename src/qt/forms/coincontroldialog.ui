@@ -480,7 +480,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="select_625">
+      <widget class="QPushButton" name="select_675">
        <property name="minimumSize">
         <size>
          <width>114</width>
@@ -488,7 +488,7 @@
         </size>
        </property>
        <property name="text">
-        <string>625</string>
+        <string>675</string>
        </property>
       </widget>
      </item>
