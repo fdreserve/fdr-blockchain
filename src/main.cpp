@@ -4910,9 +4910,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
-        if (pfrom->DisconnectOldProtocol(ActiveProtocol(), strCommand))
+        if (pfrom->DisconnectOldProtocol(ActiveProtocol(), strCommand)) 
             return false;
 
+  
         if (pfrom->nVersion == 10300)
             pfrom->nVersion = 300;
         if (!vRecv.empty())
@@ -4921,6 +4922,18 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             vRecv >> LIMITED_STRING(pfrom->strSubVer, 256);
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
         }
+        //Check Wallet Version 2.2.1 accept connection
+        std::string strWalletFrom = pfrom->cleanSubVer;
+        std::size_t found = strWalletFrom.find("2.1.");
+        if(found != std::string::npos) {
+            LogPrintf("Wallet Version not accepted. Version -> %s\n",strWalletFrom);
+            pfrom->fDisconnect = true;
+            Misbehaving(pfrom->GetId(), 100);
+            return false;
+
+        } else {
+            LogPrintf("Wallet Version accepted. Version -> %s\n",strWalletFrom);
+        } 
         if (!vRecv.empty())
             vRecv >> pfrom->nStartingHeight;
         if (!vRecv.empty())

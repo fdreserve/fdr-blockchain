@@ -90,9 +90,15 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
     if (masternodePayments.IsTransactionValid(txNew, nBlockHeight))
         return true;
 
-    LogPrintf("Invalid mn payment detected reject block \n");
+    LogPrintf("Invalid mn payment detected \n");
+    
+    if (IsSporkActive(SPORK_4_MASTERNODE_PAYMENT_ENFORCEMENT))
+        return false;
 
-    return false;
+    LogPrintf("Masternode payment enforcement is disabled, accepting block\n");
+
+    return true;
+
 }
 
 std::string GetRequiredPaymentsString(int nBlockHeight)
