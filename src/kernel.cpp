@@ -71,6 +71,7 @@ static int64_t GetStakeModifierSelectionInterval()
         nSelectionInterval += GetStakeModifierSelectionIntervalSection(nSection);
     }
     return nSelectionInterval;
+    //return 2087;
 }
 
 // select a block from the candidate blocks in vSortedByTimestamp, excluding
@@ -179,7 +180,7 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
     // Sort candidate blocks by timestamp
     vector<pair<int64_t, uint256> > vSortedByTimestamp;
     vSortedByTimestamp.reserve(64 * getIntervalVersion(fTestNet) / nStakeTargetSpacing);
-    int64_t nSelectionInterval = GetStakeModifierSelectionInterval();
+    int64_t nSelectionInterval = GetStakeModifierSelectionInterval(); // 2087
     int64_t nSelectionIntervalStart = (pindexPrev->GetBlockTime() / getIntervalVersion(fTestNet)) * getIntervalVersion(fTestNet) - nSelectionInterval;
     const CBlockIndex* pindex = pindexPrev;
 

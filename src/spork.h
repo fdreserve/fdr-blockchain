@@ -27,7 +27,7 @@ using namespace boost;
     - This would result in old clients getting confused about which spork is for what
 */
 #define SPORK_START 10001
-#define SPORK_END 10011
+#define SPORK_END 10012
 
 #define SPORK_1_SWIFTTX 10001
 #define SPORK_2_SWIFTTX_BLOCK_FILTERING 10002
@@ -40,6 +40,7 @@ using namespace boost;
 #define SPORK_9_TX_FILTERING_ENFORCEMENT 10009
 #define SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2 10010
 #define SPORK_11_DEV_FEE 10011
+#define SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3 10012
 
 #define SPORK_1_SWIFTTX_DEFAULT 978307200                         //2001-1-1
 #define SPORK_2_SWIFTTX_BLOCK_FILTERING_DEFAULT 1424217600        //2015-2-18
@@ -54,6 +55,7 @@ using namespace boost;
 #define SPORK_9_TX_FILTERING_ENFORCEMENT_DEFAULT 0                // off
 #define SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2_DEFAULT 4102444800    // off
 #define SPORK_11_DEV_FEE_DEFAULT 0                                // off
+#define SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3_DEFAULT 4102444800    // off
 
 class CSporkMessage;
 class CSporkManager;
@@ -120,6 +122,7 @@ public:
     std::string GetSporkNameByID(int id);
     int GetSporkIDByName(std::string strName);
     bool UpdateSpork(int nSporkID, int64_t nValue);
+    bool AddCheckpoint(int nSporkID, int64_t nValue, uint256 checkpoint);
     bool SetPrivKey(std::string strPrivKey);
     bool CheckSignature(CSporkMessage& spork);
     bool Sign(CSporkMessage& spork);

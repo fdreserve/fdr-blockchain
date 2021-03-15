@@ -3559,11 +3559,13 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
     if (block.IsProofOfStake()) {
         isPoS = true;
         uint256 hashProofOfStake = 0;
-        LogPrintf("Check Proof Stake for incomming Blocks\n");
-        if (!CheckProofOfStake(block, hashProofOfStake )) //, stake, pindexPrev->nHeight))
-            //LogPrintf("CheckProofofStake Line 3567 not successfull\n");
-            return state.DoS(100, error("%s: proof of stake check failed", __func__));
-
+        if(chainActive.Height() > Params().GetV221ActivationHeight()) {
+            if (!CheckProofOfStake(block, hashProofOfStake )) { //, stake, pindexPrev->nHeight)) 
+                //LogPrintf("CheckProofofStake Line 3567 not successfull \n");
+                return state.DoS(100, error("%s: proof of stake check failed", __func__));
+                //return true;
+            }
+        }
         uint256 hash = block.GetHash();
         if(!mapProofOfStake.count(hash)) // add to mapProofOfStake
             mapProofOfStake.insert(std::make_pair(hash, hashProofOfStake));
@@ -3588,10 +3590,8 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
         }
         LogPrintf("Main::3593 Checkblock or Contextual was false\n");
         return false;
-    }
-
+    }    
     int nHeight = pindex->nHeight;
-
     int splitHeight = -1;
     if( nHeight > Params().GetV221ActivationHeight()) {
         if (isPoS) {
@@ -3691,7 +3691,6 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
             }
         }
     }
-    LogPrintf("Check Proof Stake for incomming Blocks finished\n");
     // Write block to history file
     try {
         unsigned int nBlockSize = ::GetSerializeSize(block, SER_DISK, CLIENT_VERSION);
@@ -4922,18 +4921,19 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             vRecv >> LIMITED_STRING(pfrom->strSubVer, 256);
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
         }
-        //Check Wallet Version 2.2.1 accept connection
-        std::string strWalletFrom = pfrom->cleanSubVer;
-        std::size_t found = strWalletFrom.find("2.1.");
-        if(found != std::string::npos) {
-            LogPrintf("Wallet Version not accepted. Version -> %s\n",strWalletFrom);
-            pfrom->fDisconnect = true;
-            Misbehaving(pfrom->GetId(), 100);
-            return false;
-
-        } else {
-            LogPrintf("Wallet Version accepted. Version -> %s\n",strWalletFrom);
-        } 
+        if(!IsSporkActive(SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2)) {
+            //Check Wallet Version 2.2.1 accept connection
+            std::string strWalletFrom = pfrom->cleanSubVer;
+            std::size_t found = strWalletFrom.find("2.1.");
+            if(found != std::string::npos) {
+                LogPrintf("Wallet Version not accepted. Version -> %s\n",strWalletFrom);
+                pfrom->fDisconnect = true;
+                Misbehaving(pfrom->GetId(), 100);
+                return false;
+            } else {
+                LogPrintf("Wallet Version accepted. Version -> %s\n",strWalletFrom);
+            } 
+        }
         if (!vRecv.empty())
             vRecv >> pfrom->nStartingHeight;
         if (!vRecv.empty())
@@ -5723,8 +5723,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
 int ActiveProtocol()
 {
-    if (IsSporkActive(SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2)) return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
-
+    if (IsSporkActive(SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3)) {
+        return CONSENSUS_MN_ENFORCEMENT;
+    } else if (IsSporkActive(SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2)) {
+        return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
+    }
     return MIN_PEER_PROTO_VERSION_BEFORE_ENFORCEMENT;
 }
 

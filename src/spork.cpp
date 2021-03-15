@@ -102,7 +102,7 @@ int64_t GetSporkValue(int nSporkID)
         if (nSporkID == SPORK_9_TX_FILTERING_ENFORCEMENT) r = SPORK_9_TX_FILTERING_ENFORCEMENT_DEFAULT;
         if (nSporkID == SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2) r = SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2_DEFAULT;
         if (nSporkID == SPORK_11_DEV_FEE) r = SPORK_11_DEV_FEE_DEFAULT;
-
+        if (nSporkID == SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3) r = SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3_DEFAULT;
         if (r == -1) LogPrintf("GetSpork::Unknown Spork %d\n", nSporkID);
     }
 
@@ -316,6 +316,7 @@ int CSporkManager::GetSporkIDByName(std::string strName)
     if (strName == "SPORK_9_TX_FILTERING_ENFORCEMENT") return SPORK_9_TX_FILTERING_ENFORCEMENT;
     if (strName == "SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2") return SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2;
     if (strName == "SPORK_11_DEV_FEE") return SPORK_11_DEV_FEE;
+    if (strName == "SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3") return SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3;
 
     return -1;
 }
@@ -333,6 +334,7 @@ std::string CSporkManager::GetSporkNameByID(int id)
     if (id == SPORK_9_TX_FILTERING_ENFORCEMENT) return "SPORK_9_TX_FILTERING_ENFORCEMENT";
     if (id == SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2) return "SPORK_10_NEW_PROTOCOL_ENFORCEMENT_2";
     if (id == SPORK_11_DEV_FEE) return "SPORK_11_DEV_FEE";
+    if (id == SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3) return "SPORK_12_NEW_PROTOCOL_ENFORCEMENT_3";
 
     return "Unknown";
 }

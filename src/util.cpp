@@ -524,6 +524,14 @@ void WriteConfigFile(FILE* configFile)
     fputs ("addnode=167.86.119.223\n", configFile);
     fputs ("addnode=64.68.96.160\n", configFile);
     fputs ("addnode=167.86.124.134\n", configFile);
+    fputs ("#addnodes\n", configFile);
+    fputs ("addnode=[2a02:c207:2027:2245::1]\n", configFile);
+    fputs ("addnode=[2a02:c207:2027:5644::1]\n", configFile);
+    fputs ("addnode=[2a02:c207:2027:9123::1]\n", configFile);
+    fputs ("addnode=[2a02:c207:2051:9094::1]\n", configFile);
+    fputs ("addnode=[2a02:c207:2051:9093::1]\n", configFile);
+    fputs ("addnode=[2a02:c206:2051:9083::1]\n", configFile);
+    fputs ("addnode=[2a02:c206:2051:9077::1]\n", configFile);
     fclose(configFile);
     ReadConfigFile(mapArgs, mapMultiArgs);
 }

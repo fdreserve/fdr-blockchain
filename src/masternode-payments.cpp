@@ -482,9 +482,20 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
         CAmount devFeeFund = nReward * devFee / 100;
         nReward -= devFeeFund;
     }
-
+    /*
+    FILE* fp;
+    fp = fopen ("masternodedebug.txt", "a");
+    unsigned long ti = (unsigned long)time(NULL);
+    std::string res;
+    for(const CTxOut& txo : txNew.vout) {
+        CTxDestination address1;
+        ExtractDestination(txo.scriptPubKey, address1);
+        auto tmp = std::to_string(1) + ":" + CBitcoinAddress{address1}.ToString();
+        LogPrintf("Masternode Payment at block;%u;%u;%s;\n",chainActive.Height(),ti, tmp);
+        fprintf(fp, "Masternode Payment at block;%u;%u;%s;\n",chainActive.Height(),ti, tmp.c_str());
+    }
+    fclose(fp);*/
     std::string strPayeesPossible;
-
     for(const CMasternodePayee& payee : vecPayments) {
         // if we don't have at least 6 signatures on a payee, approve whichever is the longest chain
         if(payee.nVotes < MNPAYMENTS_SIGNATURES_REQUIRED)
@@ -564,7 +575,7 @@ bool CMasternodePayments::IsTransactionValid(const CTransaction& txNew, int nBlo
     if (mapMasternodeBlocks.count(nBlockHeight)) {
         return mapMasternodeBlocks[nBlockHeight].IsTransactionValid(txNew);
     }
-
+    LogPrintf("Blockheight: %i Is not found inside mapMasternodeBlocks\n", nBlockHeight);
     return true;
 }
 
